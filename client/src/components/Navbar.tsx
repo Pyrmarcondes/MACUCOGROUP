@@ -6,6 +6,7 @@ const navLinks = [
   { href: "/content-studio", label: "Content Studio" },
   { href: "/macucobot", label: "MacucoBot", accent: true },
   { href: "/portfolio", label: "Ovos da Macuco" },
+  { href: "/planos", label: "Planos" },
   { href: "/contato", label: "Contato" },
 ];
 

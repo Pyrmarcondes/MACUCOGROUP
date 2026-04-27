@@ -20,6 +20,15 @@ import {
 } from "./db";
 import { invokeLLM } from "./_core/llm";
 import { notifyOwner } from "./_core/notification";
+import Stripe from "stripe";
+import { PLANS, getPlanById } from "./stripe-products";
+import { getDb } from "./db";
+import { users, subscriptions, payments } from "../drizzle/schema";
+import { eq } from "drizzle-orm";
+
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || "", {
+  apiVersion: "2025-04-30.basil" as any,
+});
 
 const MACUCOBOT_SYSTEM_PROMPT = `Você é o MacucoBot, o assistente virtual do Macuco Group — The DAO Network.
 
@@ -240,6 +249,104 @@ export const appRouter = router({
     list: protectedProcedure.query(async ({ ctx }) => {
       if (ctx.user.role !== "admin") throw new TRPCError({ code: "FORBIDDEN" });
       return listLeads();
+    }),
+  }),
+
+  // ─── Stripe ───
+  stripe: router({
+    getPlans: publicProcedure.query(() => {
+      return PLANS;
+    }),
+
+    createCheckout: protectedProcedure
+      .input(z.object({ planId: z.string() }))
+      .mutation(async ({ ctx, input }) => {
+        const plan = getPlanById(input.planId);
+        if (!plan) throw new TRPCError({ code: "NOT_FOUND", message: "Plano não encontrado" });
+
+        const origin = ctx.req.headers.origin || "https://macucogroup.one";
+
+        const sessionParams: Stripe.Checkout.SessionCreateParams = {
+          customer_email: ctx.user.email || undefined,
+          client_reference_id: ctx.user.id.toString(),
+          metadata: {
+            user_id: ctx.user.id.toString(),
+            customer_email: ctx.user.email || "",
+            customer_name: ctx.user.name || "",
+            plan_id: plan.id,
+          },
+          line_items: [
+            {
+              price_data: {
+                currency: plan.currency,
+                product_data: {
+                  name: `MacucoBot Start — ${plan.name}`,
+                  description: plan.description,
+                },
+                unit_amount: plan.priceAmountCents,
+                ...(plan.mode === "subscription" && plan.interval
+                  ? { recurring: { interval: plan.interval } }
+                  : {}),
+              },
+              quantity: 1,
+            },
+          ],
+          mode: plan.mode,
+          allow_promotion_codes: true,
+          success_url: `${origin}/pagamento/sucesso?session_id={CHECKOUT_SESSION_ID}`,
+          cancel_url: `${origin}/planos`,
+        };
+
+        const session = await stripe.checkout.sessions.create(sessionParams);
+        return { url: session.url };
+      }),
+
+    getSubscription: protectedProcedure.query(async ({ ctx }) => {
+      const db = await getDb();
+      if (!db) return null;
+
+      const [sub] = await db
+        .select()
+        .from(subscriptions)
+        .where(eq(subscriptions.userId, ctx.user.id))
+        .limit(1);
+
+      if (!sub) return null;
+      return sub;
+    }),
+
+    getPayments: protectedProcedure.query(async ({ ctx }) => {
+      const db = await getDb();
+      if (!db) return [];
+
+      const result = await db
+        .select()
+        .from(payments)
+        .where(eq(payments.userId, ctx.user.id));
+
+      return result;
+    }),
+
+    cancelSubscription: protectedProcedure.mutation(async ({ ctx }) => {
+      const db = await getDb();
+      if (!db) throw new TRPCError({ code: "INTERNAL_SERVER_ERROR" });
+
+      const [sub] = await db
+        .select()
+        .from(subscriptions)
+        .where(eq(subscriptions.userId, ctx.user.id))
+        .limit(1);
+
+      if (!sub) throw new TRPCError({ code: "NOT_FOUND", message: "Nenhuma assinatura ativa" });
+
+      await stripe.subscriptions.cancel(sub.stripeSubscriptionId);
+
+      await db
+        .update(subscriptions)
+        .set({ status: "canceled" })
+        .where(eq(subscriptions.id, sub.id));
+
+      return { success: true };
     }),
   }),
 });

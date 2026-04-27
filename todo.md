@@ -26,3 +26,22 @@
 - [x] Navegação com abas horizontais no header (scroll horizontal no mobile)
 - [x] Rota /portfolio registrada no App.tsx
 - [x] Skill Macuco Content Platform atualizado com documentação completa
+
+## Fase 3 — Conteúdos
+
+- [x] Popular Content Studio com 13 conteúdos editoriais no banco de dados
+- [x] Verificar renderização dos conteúdos na listagem e página de leitura
+
+## Fase 3b — SEO
+
+- [x] Meta description (50-160 caracteres) no index.html
+- [x] Meta keywords no index.html
+- [x] Open Graph tags para compartilhamento social
+
+## Fase 4 — Stripe Integration
+
+- [x] Instalar feature Stripe via webdev_add_feature
+- [x] Configurar chaves API do Stripe (auto-provisionadas pelo sandbox)
+- [x] Implementar página de produtos/planos com checkout Stripe
+- [x] Implementar webhook para processar pagamentos
+- [x] Testes vitest para integração Stripe (4 testes passando)

@@ -10,6 +10,8 @@ import ContentReader from "./pages/ContentReader";
 import MacucoBot from "./pages/MacucoBot";
 import Contact from "./pages/Contact";
 import Portfolio from "./pages/Portfolio";
+import Plans from "./pages/Plans";
+import PaymentSuccess from "./pages/PaymentSuccess";
 
 function Router() {
   return (
@@ -19,6 +21,8 @@ function Router() {
       <Route path="/content-studio/:slug" component={ContentReader} />
       <Route path="/macucobot" component={MacucoBot} />
       <Route path="/portfolio" component={Portfolio} />
+      <Route path="/planos" component={Plans} />
+      <Route path="/pagamento/sucesso" component={PaymentSuccess} />
       <Route path="/contato" component={Contact} />
       <Route path="/404" component={NotFound} />
       <Route component={NotFound} />

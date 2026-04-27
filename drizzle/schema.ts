@@ -7,6 +7,7 @@ export const users = mysqlTable("users", {
   email: varchar("email", { length: 320 }),
   loginMethod: varchar("loginMethod", { length: 64 }),
   role: mysqlEnum("role", ["user", "admin"]).default("user").notNull(),
+  stripeCustomerId: varchar("stripeCustomerId", { length: 100 }),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
   updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
   lastSignedIn: timestamp("lastSignedIn").defaultNow().notNull(),
@@ -14,6 +15,33 @@ export const users = mysqlTable("users", {
 
 export type User = typeof users.$inferSelect;
 export type InsertUser = typeof users.$inferInsert;
+
+export const subscriptions = mysqlTable("subscriptions", {
+  id: int("id").autoincrement().primaryKey(),
+  userId: int("userId").notNull(),
+  stripeSubscriptionId: varchar("stripeSubscriptionId", { length: 100 }).notNull(),
+  stripePriceId: varchar("stripePriceId", { length: 100 }).notNull(),
+  status: varchar("status", { length: 50 }).notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type Subscription = typeof subscriptions.$inferSelect;
+export type InsertSubscription = typeof subscriptions.$inferInsert;
+
+export const payments = mysqlTable("payments", {
+  id: int("id").autoincrement().primaryKey(),
+  userId: int("userId"),
+  stripePaymentIntentId: varchar("stripePaymentIntentId", { length: 100 }).notNull(),
+  productName: varchar("productName", { length: 200 }),
+  amountCents: int("amountCents"),
+  currency: varchar("currency", { length: 10 }),
+  status: varchar("status", { length: 50 }).notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+export type Payment = typeof payments.$inferSelect;
+export type InsertPayment = typeof payments.$inferInsert;
 
 export const contents = mysqlTable("contents", {
   id: int("id").autoincrement().primaryKey(),
