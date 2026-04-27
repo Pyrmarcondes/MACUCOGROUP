@@ -59,7 +59,7 @@ export default function Home() {
       <Navbar />
 
       {/* Hero Section */}
-      <section className="relative pt-32 pb-20 overflow-hidden">
+      <section className="relative pt-36 pb-20 overflow-hidden">
         {/* Background gradient effects */}
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute top-20 left-1/4 w-96 h-96 rounded-full opacity-10" style={{ background: "radial-gradient(circle, #00d4ff 0%, transparent 70%)" }} />

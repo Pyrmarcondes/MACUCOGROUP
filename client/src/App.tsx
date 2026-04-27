@@ -9,6 +9,7 @@ import ContentStudio from "./pages/ContentStudio";
 import ContentReader from "./pages/ContentReader";
 import MacucoBot from "./pages/MacucoBot";
 import Contact from "./pages/Contact";
+import Portfolio from "./pages/Portfolio";
 
 function Router() {
   return (
@@ -17,6 +18,7 @@ function Router() {
       <Route path="/content-studio" component={ContentStudio} />
       <Route path="/content-studio/:slug" component={ContentReader} />
       <Route path="/macucobot" component={MacucoBot} />
+      <Route path="/portfolio" component={Portfolio} />
       <Route path="/contato" component={Contact} />
       <Route path="/404" component={NotFound} />
       <Route component={NotFound} />

@@ -19,3 +19,10 @@
 - [x] Validar no backend que lead só pode ser capturado após 5+ mensagens trocadas
 - [x] Adicionar testes vitest para chat.sendMessage e chat.submitLead
 - [ ] Push para GitHub https://github.com/Pyrmarcondes/MACUCOGROUP.git
+
+## Fase 2 — Expansão
+
+- [x] Página "Ovos da Macuco" (/portfolio) com 23 startups em 10 categorias
+- [x] Navegação com abas horizontais no header (scroll horizontal no mobile)
+- [x] Rota /portfolio registrada no App.tsx
+- [x] Skill Macuco Content Platform atualizado com documentação completa
