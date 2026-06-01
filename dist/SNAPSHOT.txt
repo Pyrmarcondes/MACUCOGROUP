@@ -1,4 +1,4 @@
-Backup snapshot - 2026-05-18
+Backup snapshot - 2026-06-01
 Site URL: https://macucogroup.one
 Manus URL: https://macucogroup-hxgjz2gf.manus.space
 Status: Site online (HTTP 200)
