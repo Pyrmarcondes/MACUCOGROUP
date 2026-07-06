@@ -1,6 +1,7 @@
-Backup snapshot - 2026-06-29
+Backup snapshot - 2026-07-06
 Site URL: https://macucogroup.one
 Manus URL: https://macucogroup-hxgjz2gf.manus.space
 Status: Site online (HTTP 200)
-Arquivos: index.html, assets/index-Bzxs_U52.js, assets/index-Laofusa3.css
-Nota: Diferença detectada no index.html (paths relativos vs absolutos nos assets)
+Arquivos: index.html, assets/index-CG1hlvZq.js, assets/index-DrMZC50z.css
+Nota: Assets atualizados (hashes mudaram de Bzxs_U52/Laofusa3 para CG1hlvZq/DrMZC50z)
+Last-Modified header: Fri, 08 May 2026 17:25:57 GMT (macucogroup.one)
