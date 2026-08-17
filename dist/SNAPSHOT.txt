@@ -1,10 +1,10 @@
-Backup snapshot - 2026-07-27
+Backup snapshot - 2026-08-17
 Site URL: https://macucogroup.one
 Manus URL: https://macucogroup-hxgjz2gf.manus.space
 Status: Site de produção online (HTTP 200)
 Fonte de verdade: https://macucogroup.one (implantação mais recente)
-Last-Modified: Thu, 23 Jul 2026 23:21:29 GMT
-Arquivos principais: index.html, assets/index-DD_y_Ex_.js, assets/index-l8gIesSQ.css, __manus/pwa/manifest.webmanifest
-Cobertura: 71 arquivos; HTML, bundles JS/CSS, manifesto PWA, fontes locais, imagens manus-storage, hashes SHA-256 e mapa data-loc dos módulos de origem
-Alterações detectadas: sim; a produção contém novas rotas e módulos, incluindo Tese, SourceRank, Bots, Helena, News e Artigos
-Nota de recuperação: o endpoint público não expõe um pacote dos arquivos TypeScript/TSX não compilados; por isso, o snapshot preserva integralmente os artefatos implantáveis e o mapa exato dos 25 arquivos de origem incorporado ao bundle
+Last-Modified: Tue, 28 Jul 2026 18:12:16 GMT
+Arquivos principais: index.html, assets/index-hGsBJG9h.js, assets/index-CWUI2vSm.css, __manus/pwa/manifest.webmanifest
+Cobertura: 65 arquivos; HTML, bundles JS/CSS, manifesto PWA, fontes locais, imagens manus-storage, hashes SHA-256 e mapa data-loc dos módulos de origem
+Alterações detectadas: sim; novos hashes de build (index-hGsBJG9h.js, index-CWUI2vSm.css)
+Nota de recuperação: o endpoint público não expõe um pacote dos arquivos TypeScript/TSX não compilados; por isso, o snapshot preserva integralmente os artefatos implantáveis e o mapa exato dos arquivos de origem incorporado ao bundle

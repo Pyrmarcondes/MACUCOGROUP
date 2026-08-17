@@ -1,0 +1,19 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+
+# LLM crawlers
+User-agent: GPTBot
+Allow: /
+Disallow: /api/
+
+User-agent: ClaudeBot
+Allow: /
+Disallow: /api/
+
+User-agent: PerplexityBot
+Allow: /
+Disallow: /api/
+
+Sitemap: https://www.macucogroup.one/sitemap.xml
+Sitemap: https://www.macucogroup.one/llms.txt
